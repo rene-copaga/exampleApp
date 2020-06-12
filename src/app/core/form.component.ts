@@ -4,7 +4,7 @@ import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model";
 import { MODES, SharedState, SHARED_STATE } from "./sharedState.model";
 import { Observable } from "rxjs";
-import { filter, map } from "rxjs/operators";
+import { filter, map, distinctUntilChanged } from "rxjs/operators";
 
 @Component({
     selector: "paForm",
@@ -20,6 +20,7 @@ export class FormComponent {
 
         stateEvents
         .pipe(map(state => state.mode == MODES.EDIT ? state.id : -1))
+        .pipe(distinctUntilChanged())
         .pipe(filter(id => id != 3))
         .subscribe((id) => {
             this.editing = id != -1;
