@@ -8,7 +8,7 @@ const routes: Routes = [
     { path: "form/:mode", component: FormComponent },
     { path: "does", redirectTo: "/form/create", pathMatch: "prefix" }
     { path: "table", component: TableComponent },
-    { path: "", redirectTo: "/table", pathMatch: "full" }
+    { path: "", redirectTo: "/table", pathMatch: "full" },
     { path: "**", component: NotFoundComponent }]
 
 export const routing = RouterModule.forRoot(routes);
