@@ -8,7 +8,7 @@ let routing = RouterModule.forChild([
 ])
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, routing],
     declarations: [OndemandComponent],
     exports: [OndemandComponent]
 })
