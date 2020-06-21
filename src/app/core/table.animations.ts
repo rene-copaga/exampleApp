@@ -1,4 +1,5 @@
 import { trigger, state, style, transition, animate, group } from "@angular/animations";
+import { getStylesFromClasses } from "./animationUtils";
 
 const commonStyles = {
     border: "black solid 4px",
@@ -6,14 +7,8 @@ const commonStyles = {
 };
 
 export const HighlightTrigger = trigger("rowHighlight", [
-    state("selected", style([commonStyles, {
-        backgroundColor: "lightgreen",
-        fontSize: "20px"
-    }])),
-    state("notselected", style([commonStyles, {
-        backgroundColor: "lightsalmon",
-        fontSize: "12px"
-    }])),
+    state("selected", style(getStylesFromClasses(["bg-success", "h2"]))),
+    state("notselected", style(getStylesFromClasses("bg-info"))),
     state("void", style({
         transform: "translateX(-50%)"
     })),
