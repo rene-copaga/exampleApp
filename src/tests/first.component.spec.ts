@@ -2,10 +2,14 @@ import { TestBed, ComponentFixture } from "@angular/core/testing";
 import { FirstComponent } from "src/app/ondemand/first.component";
 import { Product } from "src/app/model/product.model";
 import { Model } from "src/app/model/repository.model";
+import { DebugElement } from "@angular/core";
+import { By } from "@angular/platform-browser";
 
 describe("FirstComponent", () => {
     let fixture: ComponentFixture<FirstComponent>;
     let component: FirstComponent;
+    let debugElement: DebugElement;
+    let bindingElement: HTMLSpanElement;
 
     let mockRepository = {
         getProducts: function () {
@@ -26,6 +30,8 @@ describe("FirstComponent", () => {
         });
         fixture = TestBed.createComponent(FirstComponent);
         component = fixture.componentInstance;
+        debugElement = fixture.debugElement;
+        bindingElement = debugElement.query(By.css("span")).nativeElement;
     });
 
     it("is defined", () => {
@@ -34,10 +40,18 @@ describe("FirstComponent", () => {
 
     it("filters categories", () => {
         component.category = "Chess";
+        fixture.detectChanges();
         expect(component.getProducts().length).toBe(1);
+        expect(bindingElement.textContent).toContain("1");
+
         component.category = "Soccer";
+        fixture.detectChanges();
         expect(component.getProducts().length).toBe(2);
+        expect(bindingElement.textContent).toContain("2");
+
         component.category = "Running";
+        fixture.detectChanges();
         expect(component.getProducts().length).toBe(0);
+        expect(bindingElement.textContent).toContain("0");
     });
 });
