@@ -4,10 +4,12 @@ import { Model } from "../model/repository.model";
 import { MODES, SharedState, SHARED_STATE } from "./sharedState.model";
 import { Observer } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
+import { HighlightTrigger } from "./table.animations";
 
 @Component({
     selector: "paTable",
-    templateUrl: "table.component.html"
+    templateUrl: "table.component.html",
+    animations: [HighlightTrigger]
 })
 export class TableComponent {
     category: string = null;
@@ -32,9 +34,15 @@ export class TableComponent {
             .map(p => p.category)
             .filter((category, index, array) => array.indexOf(category) == index);
     }
-    
 
     deleteProduct(key: number) {
         this.model.deleteProduct(key);
+    }
+
+    highlightCategory: string = "";
+
+    getRowState(category: string): string {
+        return this.highlightCategory == "" ? "" :
+            this.highlightCategory == category ? "selected" : "notselected";
     }
 }
