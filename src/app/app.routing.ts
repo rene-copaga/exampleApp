@@ -10,15 +10,11 @@ import { UnsavedGuard } from "./core/unsaved.guard";
 import { LoadGuard } from "./load.guard";
 
 const routes: Routes = [
-    {
-      path: "form/:mode/:id", component: FormComponent,
-      canDeactivate: [UnsavedGuard]
-    },
-    { path: "form/:mode", component: FormComponent, canActivate: [TermsGuard] },
-    { path: "table", component: TableComponent },
-    { path: "table/:category", component: TableComponent },
-    { path: "", redirectTo: "/table", pathMatch: "full" },
-    { path: "**", component: NotFoundComponent }
+  {
+    path: "ondemand",
+    loadChildren: "./ondemand/ondemand.module#OndemandModule"
+  },
+  { path: "", redirectTo: "/ondemand", pathMatch: "full" }
 ]
 
 export const routing = RouterModule.forRoot(routes);
