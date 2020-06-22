@@ -4,11 +4,7 @@ import { Model } from "../model/repository.model";
 
 @Component({
     selector: "first",
-    template: `<div class="bg-primary text-white p-2">
-                    There are
-                        <span class="strong"> {{getProducts().length}} </span>
-                    products
-                </div>`
+    templateUrl: "first.component.html"
 })
 export class FirstComponent {
 
