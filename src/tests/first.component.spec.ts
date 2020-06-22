@@ -71,4 +71,13 @@ describe("FirstComponent", () => {
         expect(component.highlighted).toBeFalsy();
         expect(divElement.classList.contains("bg-success")).toBeFalsy();
     });
+
+    it("implements output property", () => {
+        let highlighted: boolean;
+        component.change.subscribe(value => highlighted = value);
+        debugElement.triggerEventHandler("mouseenter", new Event("mouseenter"));
+        expect(highlighted).toBeTruthy();
+        debugElement.triggerEventHandler("mouseleave", new Event("mouseleave"));
+        expect(highlighted).toBeFalsy();
+    });
 });
