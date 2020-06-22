@@ -10,6 +10,7 @@ describe("FirstComponent", () => {
     let component: FirstComponent;
     let debugElement: DebugElement;
     let spanElement: HTMLSpanElement;
+    let divElement: HTMLDivElement;
 
     let mockRepository = {
         getProducts: function () {
@@ -33,6 +34,7 @@ describe("FirstComponent", () => {
             component = fixture.componentInstance;
             debugElement = fixture.debugElement;
             spanElement = debugElement.query(By.css("span")).nativeElement;
+            divElement = debugElement.children[0].nativeElement;
         });
     }));
 
@@ -55,5 +57,18 @@ describe("FirstComponent", () => {
         fixture.detectChanges();
         expect(component.getProducts().length).toBe(0);
         expect(spanElement.textContent).toContain("0");
+    });
+
+    it("handles mouse events", () => {
+        expect(component.highlighted).toBeFalsy();
+        expect(divElement.classList.contains("bg-success")).toBeFalsy();
+        debugElement.triggerEventHandler("mouseenter", new Event("mouseenter"));
+        fixture.detectChanges();
+        expect(component.highlighted).toBeTruthy();
+        expect(divElement.classList.contains("bg-success")).toBeTruthy();
+        debugElement.triggerEventHandler("mouseleave", new Event("mouseleave"));
+        fixture.detectChanges()
+        expect(component.highlighted).toBeFalsy();
+        expect(divElement.classList.contains("bg-success")).toBeFalsy();
     });
 });
